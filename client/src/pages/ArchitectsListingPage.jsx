@@ -76,25 +76,16 @@ const ArchitectsListingPage = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col w-full">
-      {/* Navigation Bar */}
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 w-full">
-        <div className="px-8 py-4 flex justify-between items-center max-w-7xl mx-auto w-full">
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition">
-            <span className="text-3xl">🏠</span>
-            <h1 className="text-2xl font-bold text-black">Cozy Corner</h1>
-          </Link>
-          <Link to="/" className="px-6 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800 transition">
-            Home
-          </Link>
-        </div>
-      </nav>
+
 
       <div className="w-full py-12 px-8 flex-grow">
         <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-bold text-black mb-4">Discover Architects</h1>
-          <p className="text-xl text-gray-600">Find the perfect professional for your project</p>
+        <div className="mb-12 animate-fadeInDown">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-black via-gray-800 to-black bg-clip-text text-transparent mb-6 leading-tight" data-stagger="1">
+            Discover Top Architects
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl animate-fadeInUp" data-stagger="2">Advanced search and filters to find the perfect professional for your dream project</p>
         </div>
 
         {/* Search Bar */}
@@ -112,21 +103,21 @@ const ArchitectsListingPage = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="bg-gray-50 rounded-3xl p-8 mb-12">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-semibold text-black">Advanced Filters</h2>
+        {/* Filters - Slide In */}
+        <div className="bg-gradient-to-br from-gray-50 to-white/50 backdrop-blur-sm rounded-3xl p-6 sm:p-8 mb-12 shadow-xl border border-gray-100/50 animate-slideInRight">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-black to-gray-800 bg-clip-text text-transparent">Advanced Filters</h2>
             {activeFiltersCount > 0 && (
               <button
                 onClick={clearFilters}
-                className="text-sm text-[#CDB4DB] hover:text-black font-medium transition"
+                className="px-4 py-2 bg-gradient-to-r from-[#CDB4DB] to-purple-400 text-white font-semibold text-sm rounded-xl hover:scale-105 hover:shadow-lg transition-all duration-300"
               >
                 Clear all ({activeFiltersCount})
               </button>
             )}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
             {/* Location Filter */}
             <div>
               <label htmlFor="location" className="block text-sm font-semibold text-black mb-2">
@@ -243,11 +234,13 @@ const ArchitectsListingPage = () => {
           <>
             <p className="text-gray-600 mb-8 font-medium">{architects.length} architect{architects.length !== 1 ? 's' : ''} found</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {architects.map((architect) => (
+              {architects.map((architect, index) => (
                 <Link
                   key={architect._id}
                   to={`/architects/${architect._id}`}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  className="group bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-100/50 animate-fadeInUp opacity-0 data-[loaded=true]:opacity-100"
+                  style={{ '--delay': `${index * 0.1}s` }}
+                  data-stagger={index + 1}
                 >
                   {/* Image Section */}
                   {architect.portfolioImages?.length > 0 && (

@@ -1,6 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
+dotenv.config({ path: "./.env" });
+console.log("ENV CHECK:", process.env.MONGODB_URI);
+console.log("CWD:", process.cwd());
 import "express-async-errors";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -12,13 +16,8 @@ import architectRouter from "./routes/architects.js";
 import requestsRouter from "./routes/requests.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const envPath = path.join(__dirname, "..", ".env");
-console.log("Loading .env from:", envPath);
-const result = dotenv.config({ path: envPath });
-console.log("dotenv.config result:", result.error ? result.error.message : "Success");
-if (result.parsed) {
-  console.log("Loaded env vars:", Object.keys(result.parsed));
-}
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
